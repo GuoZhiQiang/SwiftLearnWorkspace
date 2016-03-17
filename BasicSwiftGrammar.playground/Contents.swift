@@ -183,15 +183,30 @@ class NameShape {
         self.name = name
     }
     func simpleDescription() ->String {
-        return "A shape with \(numberOfSides) sides"
+        return "A shape with a name \(name)"
     }
 }
 var nameShape = NameShape(name: "ssss")
-nameShape.name = "sssddd"
-var initName = nameShape.name
+var initName = nameShape.simpleDescription()
 
-
-
+/*********/
+class NameShapeTwo {
+    var numberOfSides: Int
+    init(number:Int) {
+        print("init called")
+        self.numberOfSides = number
+    }
+    deinit {
+        print("deinit called")
+        numberOfSides = 0
+    }
+    func addNumbers(number:Int) {
+        numberOfSides += 3
+    }
+}
+var shapeTwo :NameShapeTwo? = NameShapeTwo(number: 3)
+print("numberOfSides : \(shapeTwo!.numberOfSides)")
+shapeTwo = nil
 
 
 
