@@ -208,6 +208,94 @@ var shapeTwo :NameShapeTwo? = NameShapeTwo(number: 3)
 print("numberOfSides : \(shapeTwo!.numberOfSides)")
 shapeTwo = nil
 
+/*********/
+class Square: NameShape {
+    var sideLength: Double
+    init(sideLength: Double, name: String) {
+        self.sideLength = sideLength
+        super.init(name: name)
+        numberOfSides = 3
+    }
+    
+    func area() ->Double {
+        return sideLength * sideLength
+    }
+    override func simpleDescription() -> String {
+        return "A square with sides of length \(sideLength)."
+    }
+}
+var squareTest = Square(sideLength: 3.2, name: "subclass test")
+squareTest.area()
+squareTest.simpleDescription()
+squareTest.name
+
+/*********/
+class EquilateralTriangle: NameShape {
+    var sideLength: Double = 0.0
+    init(sideLength: Double, name: String) {
+        self.sideLength = sideLength
+        super.init(name: name)
+        numberOfSides = 3
+    }
+    var perimeter: Double {
+        get {
+            return perimeterTwo
+        }
+        set {
+            sideLength = newValue / 3.0
+        }
+//        set(perimeter) {
+//            perimeter
+//            sideLength = perimeter / 3.0
+//        }
+    }
+    override func simpleDescription() -> String {
+        return "An equilateral triangle with sides of length \(sideLength)."
+    }
+}
+var triangle = EquilateralTriangle(sideLength: 3.1, name: "a triangle")
+print(triangle.perimeter)
+triangle.perimeter = 9.9
+print(triangle.sideLength)
+
+/*********/
+class EquilateralTriangleOne: NameShape {
+    //    var sideLength: Double = 0.0
+    var perimeterTwo: Double = 0.0
+    init(sideLength: Double, name: String) {
+        self.sideLength = sideLength
+        super.init(name: name)
+        numberOfSides = 3
+    }
+    var sideLengthTemp: Double = 0.0
+    var sideLength: Double {
+        set {
+            self.sideLength = sideLengthTemp
+        }
+        get {
+            return self.sideLengthTemp
+        }
+    }
+    var perimeter: Double {
+        get {
+            return perimeterTwo
+        }
+        //        set {
+        //            sideLength = newValue / 3.0
+        //        }
+        //        set(perimeter) {
+        //            perimeter
+        //            sideLength = perimeter / 3.0
+        //        }
+        set {
+            self.perimeterTwo = newValue
+        }
+    }
+    override func simpleDescription() -> String {
+        return "An equilateral triangle with sides of length \(sideLength)."
+    }
+}
+
 
 
 
