@@ -73,6 +73,54 @@ for (key, value) in interestingNumbers {
 print(largest)
 print(largestKind)
 
+/***********/
+let individualScores = [10,9,33,11]
+var teamScore = 0
+for score in individualScores {
+    if score > 50 {
+        teamScore+=3
+    }
+    else {
+        teamScore+=1
+    }
+}
+print(teamScore)
+
+/***********/
+var conditionalValue = 1
+if conditionalValue < 2 {
+    print(conditionalValue)
+}
+
+/***********/
+var optionalString : String? = "Hello kitty"
+print(optionalString == nil)
+
+var optionalName: String? = "Swift"
+var greeting = "Hello!"
+if let name = optionalName {
+    greeting = "Hello, \(name)"
+}
+else {
+    print(optionalName)
+}
+
+/***********/
+let nickName: String? = nil
+let fullName: String = "Swift"
+let informalGreeting = "Hi \(nickName ?? fullName)"
+
+/***********/
+func sumOf(numbers:Int...) ->Int {
+    var sum = 0
+    for number in numbers {
+        sum += number
+    }
+    return sum
+}
+print(sumOf())
+print(sumOf(1,3,4,5))
+
 /*********/
 var factorial = 5
 for i in 1..<5 {
@@ -136,6 +184,49 @@ func makeIncrementer() ->((Int,Int) ->Int) {
 }
 var increment = makeIncrementer()
 print(increment(2,4))
+
+/***********/
+func square(a:Float) ->Float {
+    return a*a
+}
+func cube(a:Float) ->Float {
+    return a*a*a
+}
+func averageSumOfSquare(a:Float, b:Float) ->Float {
+    return (square(a) + square(b))/2.0
+}
+func averageSumOfCube(a:Float, b:Float) ->Float {
+    return (cube(a) + cube(b)) / 2.0
+}
+averageSumOfSquare(1.0, b: 3.0)
+averageSumOfCube(2.0, b: 3.0)
+
+/***********/
+func averageOfSum(a:Float, b:Float, f:(Float ->Float)) ->Float {
+    return (f(a) + f(b))/2.0
+}
+averageOfSum(2.0, b: 3.0, f: square)
+averageOfSum(3.0, b: 3.0, f: cube)
+let averageNewSum = averageOfSum(3, b: 4, f: {(x:Float) ->Float in return x*x})
+print(averageNewSum)
+//individualScores.map({
+//    (number:Int) ->Int in
+//    let result = number+3
+//    return result
+//})
+
+//individualScores.map({
+//    number in number+1})
+//print(individualScores)
+
+let mappedScores = individualScores.map({
+    $0+1})
+print(individualScores)
+print(mappedScores)
+
+individualScores.sort({
+    $0 < $1
+})
 
 /*********/
 func hasAnyMatches(list:[Int], condition:(Int) ->Bool) ->Bool {
@@ -239,7 +330,7 @@ class EquilateralTriangle: NameShape {
     }
     var perimeter: Double {
         get {
-            return perimeterTwo
+            return sideLength*3.0
         }
         set {
             sideLength = newValue / 3.0
@@ -260,7 +351,7 @@ print(triangle.sideLength)
 
 /*********/
 class EquilateralTriangleOne: NameShape {
-    //    var sideLength: Double = 0.0
+    var sideLength: Double = 0.0
     var perimeterTwo: Double = 0.0
     init(sideLength: Double, name: String) {
         self.sideLength = sideLength
@@ -268,14 +359,6 @@ class EquilateralTriangleOne: NameShape {
         numberOfSides = 3
     }
     var sideLengthTemp: Double = 0.0
-    var sideLength: Double {
-        set {
-            self.sideLength = sideLengthTemp
-        }
-        get {
-            return self.sideLengthTemp
-        }
-    }
     var perimeter: Double {
         get {
             return perimeterTwo
