@@ -351,38 +351,98 @@ print(triangle.sideLength)
 
 /*********/
 class EquilateralTriangleOne: NameShape {
-    var sideLength: Double = 0.0
-    var perimeterTwo: Double = 0.0
+    
     init(sideLength: Double, name: String) {
-        self.sideLength = sideLength
+        self.tempLength = sideLength
         super.init(name: name)
         numberOfSides = 3
     }
-    var sideLengthTemp: Double = 0.0
-    var perimeter: Double {
+    
+    var tempLength: Double = 0.0
+    var sideLength: Double {
         get {
-            return perimeterTwo
+            print("getget")
+            return self.tempLength
         }
-        //        set {
-        //            sideLength = newValue / 3.0
-        //        }
-        //        set(perimeter) {
-        //            perimeter
-        //            sideLength = perimeter / 3.0
-        //        }
         set {
-            self.perimeterTwo = newValue
+            print("setset")
+            self.tempLength = newValue
         }
     }
+    
     override func simpleDescription() -> String {
-        return "An equilateral triangle with sides of length \(sideLength)."
+        return "An equilateral triangle with sides of length \(self.sideLength)."
     }
 }
+var triangleOne = EquilateralTriangleOne(sideLength: 3.5, name: "b triangle")
+print(triangleOne.sideLength)
+triangleOne.sideLength = 3.6
+print(triangleOne.sideLength)
 
+/*********/
+class TriangleAndSquare {
+    
+    var triangleL: EquilateralTriangle {
+        willSet {
+            print("triangleL willSet")
+            squareL.sideLength = newValue.sideLength
+        }
+        didSet {
+            print("triangleL didSet")
+        }
+    }
+    var squareL: Square {
+        willSet {
+            print("squareL willSet")
+            triangleL.sideLength = newValue.sideLength
+        }
+        didSet {
+            print("squareL didSet")
+        }
+    }
+    init(size: Double, name:String) {
+        // 少初始化任何一个对象，都会报错 
+        // return from initializer without initializing all stored properties
+        // 类似于 oc 的用来存储数据的 model，需要对象序列化一样
+        squareL = Square(sideLength: size, name: name)
+        triangleL = EquilateralTriangle(sideLength: size, name: name)
+    }
+}
+var triangleAndSquare = TriangleAndSquare(size: 5.0, name: "another shape")
+print(triangleAndSquare.squareL.sideLength)
+print(triangleAndSquare.triangleL.sideLength)
+triangleAndSquare.squareL = Square(sideLength: 10.0, name: "lager shape")
+print(triangleAndSquare.triangleL.sideLength)
 
+/*********/
+enum Rank: Int {
+    //enum case must declare a raw value when the preceding raw value is not an integer
+    case Ace = 1
+    case Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten
+    case Jack, Queen, King
+    func simpleDescription() ->String {
+        switch self {
+        case .Ace:
+            return "ace"
+        case .Jack:
+            return "jack"
+        case .Queen:
+            return "queen"
+        case .King:
+            return "king"
+        default:
+            return String(self.rawValue)
+        }
+    }
+}
+let ace = Rank.Ace
+let aceRawValue = ace.rawValue
+let aceString = ace.simpleDescription()
 
-
-
+/*********/
+if let convertRank = Rank(rawValue: 3) {
+    let threeDescription = convertRank.simpleDescription()
+}
 
 
 
