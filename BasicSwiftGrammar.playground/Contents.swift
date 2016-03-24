@@ -59,6 +59,11 @@ for name: Int in shoppingPrice {
 }
 
 /*********/
+var ssdfd = NSMutableArray()
+ssdfd[0] = 20
+print(ssdfd)
+
+/*********/
 var largest = 0
 var largestKind = ""
 let interestingNumbers = ["Prime":[2,3,5,7],"Square":[1,4,9,16,25]]
@@ -460,8 +465,28 @@ enum Suit {
         }
     }
 }
-let hearts = Suit.Hearts
+let heartFull = Suit.Hearts
+let hearts:Suit = .Hearts
 let heartsDes = hearts.simpleDescription()
+var heartsOne = Suit.Hearts
+
+/*********/
+struct Card {
+    var rank: Rank
+    var suit: Suit
+    func simpleDescription()-> String {
+        return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
+    }
+}
+let threeOfSpades = Card(rank: .Three, suit: .Spades)
+let threeDes = threeOfSpades.simpleDescription()
+
+/*********/
+enum Barcode {
+    case UPCA(Int, Int, Int, Int)
+    case QRCode(String)
+}
+
 
 
 
