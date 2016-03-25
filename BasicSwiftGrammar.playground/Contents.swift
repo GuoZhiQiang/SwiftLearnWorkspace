@@ -419,7 +419,7 @@ print(triangleAndSquare.triangleL.sideLength)
 triangleAndSquare.squareL = Square(sideLength: 10.0, name: "lager shape")
 print(triangleAndSquare.triangleL.sideLength)
 
-/*********/
+/*****枚举****/
 enum Rank: Int {
     //enum case must declare a raw value when the preceding raw value is not an integer
     case Ace = 1
@@ -444,12 +444,12 @@ let ace = Rank.Ace
 let aceRawValue = ace.rawValue
 let aceString = ace.simpleDescription()
 
-/*********/
+/*****枚举构造器****/
 if let convertRank = Rank(rawValue: 3) {
     let threeDescription = convertRank.simpleDescription()
 }
 
-/*********/
+/*****枚举的值****/
 enum Suit {
     case Spades, Hearts, Diamonds, Clubs
     func simpleDescription() ->String {
@@ -469,8 +469,29 @@ let heartFull = Suit.Hearts
 let hearts:Suit = .Hearts
 let heartsDes = hearts.simpleDescription()
 var heartsOne = Suit.Hearts
+heartsOne = Suit.Spades
 
-/*********/
+/*****枚举的关联值****/
+enum Barcode {
+    case UPCA(Int, Int, Int, Int)
+    case QRCode(String)
+}
+var barcode = Barcode.UPCA(9, 72345, 77787, 8)
+barcode = .QRCode("abcdefg")
+switch barcode {
+case .UPCA(let numberSystem, let manufacture, let product, let check):
+    print("UPC-A: \(numberSystem) \(manufacture) \(product) \(check)")
+case .QRCode(let productCode):
+    print("QR Code: \(productCode)")
+}
+switch barcode {
+case let .UPCA(numberSystem, manufacture, product, check):
+    print("UPC-A: \(numberSystem) \(manufacture) \(product) \(check)")
+case let .QRCode(productCode):
+    print("QR Code: \(productCode)")
+}
+
+/*****结构体****/
 struct Card {
     var rank: Rank
     var suit: Suit
@@ -481,11 +502,14 @@ struct Card {
 let threeOfSpades = Card(rank: .Three, suit: .Spades)
 let threeDes = threeOfSpades.simpleDescription()
 
-/*********/
-enum Barcode {
-    case UPCA(Int, Int, Int, Int)
-    case QRCode(String)
+struct Structure {
+    var simpleDes = "A simple"
+    // 在结构体的方法中要修改结构体的变量，需要加关键字 mutating
+    mutating func adjust() {
+        simpleDes += "aaa"
+    }
 }
+
 
 
 
