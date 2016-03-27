@@ -379,6 +379,10 @@ class EquilateralTriangleOne: NameShape {
     }
 }
 
+/*********/
+let optionalSquare : Square? = Square(sideLength:5.3, name: "optionalSquare")
+var optionalLength = optionalSquare?.sideLength
+
 
 
 
