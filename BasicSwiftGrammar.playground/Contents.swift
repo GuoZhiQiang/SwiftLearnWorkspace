@@ -59,6 +59,11 @@ for name: Int in shoppingPrice {
 }
 
 /*********/
+var ssdfd = NSMutableArray()
+ssdfd[0] = 20
+print(ssdfd)
+
+/*********/
 var largest = 0
 var largestKind = ""
 let interestingNumbers = ["Prime":[2,3,5,7],"Square":[1,4,9,16,25]]
@@ -351,40 +356,154 @@ print(triangle.sideLength)
 
 /*********/
 class EquilateralTriangleOne: NameShape {
-    var sideLength: Double = 0.0
-    var perimeterTwo: Double = 0.0
+    
     init(sideLength: Double, name: String) {
-        self.sideLength = sideLength
+        self.tempLength = sideLength
         super.init(name: name)
         numberOfSides = 3
     }
-    var sideLengthTemp: Double = 0.0
-    var perimeter: Double {
+    
+    var tempLength: Double = 0.0
+    var sideLength: Double {
         get {
-            return perimeterTwo
+            print("getget")
+            return self.tempLength
         }
-        //        set {
-        //            sideLength = newValue / 3.0
-        //        }
-        //        set(perimeter) {
-        //            perimeter
-        //            sideLength = perimeter / 3.0
-        //        }
         set {
-            self.perimeterTwo = newValue
+            print("setset")
+            self.tempLength = newValue
         }
     }
+    
     override func simpleDescription() -> String {
-        return "An equilateral triangle with sides of length \(sideLength)."
+        return "An equilateral triangle with sides of length \(self.sideLength)."
     }
 }
+var triangleOne = EquilateralTriangleOne(sideLength: 3.5, name: "b triangle")
+print(triangleOne.sideLength)
+triangleOne.sideLength = 3.6
+print(triangleOne.sideLength)
 
 /*********/
-let optionalSquare : Square? = Square(sideLength:5.3, name: "optionalSquare")
-var optionalLength = optionalSquare?.sideLength
+class TriangleAndSquare {
+    
+    var triangleL: EquilateralTriangle {
+        willSet {
+            print("triangleL willSet")
+            squareL.sideLength = newValue.sideLength
+        }
+        didSet {
+            print("triangleL didSet")
+        }
+    }
+    var squareL: Square {
+        willSet {
+            print("squareL willSet")
+            triangleL.sideLength = newValue.sideLength
+        }
+        didSet {
+            print("squareL didSet")
+        }
+    }
+    init(size: Double, name:String) {
+        // 少初始化任何一个对象，都会报错 
+        // return from initializer without initializing all stored properties
+        // 类似于 oc 的用来存储数据的 model，需要对象序列化一样
+        squareL = Square(sideLength: size, name: name)
+        triangleL = EquilateralTriangle(sideLength: size, name: name)
+    }
+}
+var triangleAndSquare = TriangleAndSquare(size: 5.0, name: "another shape")
+print(triangleAndSquare.squareL.sideLength)
+print(triangleAndSquare.triangleL.sideLength)
+triangleAndSquare.squareL = Square(sideLength: 10.0, name: "lager shape")
+print(triangleAndSquare.triangleL.sideLength)
 
+/*****枚举****/
+enum Rank: Int {
+    //enum case must declare a raw value when the preceding raw value is not an integer
+    case Ace = 1
+    case Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten
+    case Jack, Queen, King
+    func simpleDescription() ->String {
+        switch self {
+        case .Ace:
+            return "ace"
+        case .Jack:
+            return "jack"
+        case .Queen:
+            return "queen"
+        case .King:
+            return "king"
+        default:
+            return String(self.rawValue)
+        }
+    }
+}
+let ace = Rank.Ace
+let aceRawValue = ace.rawValue
+let aceString = ace.simpleDescription()
 
+/*****枚举的值****/
+enum Suit {
+    case Spades, Hearts, Diamonds, Clubs
+    func simpleDescription() ->String {
+        switch self {
+        case .Spades:
+            return "spades"
+        case .Hearts:
+            return "hearts"
+        case .Diamonds:
+            return "diamonds"
+        case .Clubs:
+            return "clubs"
+        }
+    }
+}
+let heartFull = Suit.Hearts
+let hearts:Suit = .Hearts
+let heartsDes = hearts.simpleDescription()
+var heartsOne = Suit.Hearts
+heartsOne = Suit.Spades
 
+/*****枚举的关联值****/
+enum Barcode {
+    case UPCA(Int, Int, Int, Int)
+    case QRCode(String)
+}
+var barcode = Barcode.UPCA(9, 72345, 77787, 8)
+barcode = .QRCode("abcdefg")
+switch barcode {
+case .UPCA(let numberSystem, let manufacture, let product, let check):
+    print("UPC-A: \(numberSystem) \(manufacture) \(product) \(check)")
+case .QRCode(let productCode):
+    print("QR Code: \(productCode)")
+}
+switch barcode {
+case let .UPCA(numberSystem, manufacture, product, check):
+    print("UPC-A: \(numberSystem) \(manufacture) \(product) \(check)")
+case let .QRCode(productCode):
+    print("QR Code: \(productCode)")
+}
+
+/*****结构体****/
+struct Card {
+    var rank: Rank
+    var suit: Suit
+    func simpleDescription()-> String {
+        return "The \(rank.simpleDescription()) of \(suit.simpleDescription())"
+    }
+}
+let threeOfSpades = Card(rank: .Three, suit: .Spades)
+let threeDes = threeOfSpades.simpleDescription()
+
+struct Structure {
+    var simpleDes = "A simple"
+    // 在结构体的方法中要修改结构体的变量，需要加关键字 mutating
+    mutating func adjust() {
+        simpleDes += "aaa"
+    }
+}
 
 
 
