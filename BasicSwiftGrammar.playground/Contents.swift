@@ -255,7 +255,7 @@ let sortedNumbers = numbers.sort(){
 }
 print(sortedNumbers)
 
-/*********/
+/*****类****/
 class Shape {
     var numberOfSides = 0
     let numberOfPoint = 3
@@ -384,7 +384,7 @@ print(triangleOne.sideLength)
 triangleOne.sideLength = 3.6
 print(triangleOne.sideLength)
 
-/*********/
+/****willSet*didSet****/
 class TriangleAndSquare {
     
     var triangleL: EquilateralTriangle {
@@ -508,11 +508,64 @@ let threeDes = threeOfSpades.simpleDescription()
 
 struct Structure {
     var simpleDes = "A simple"
-    // 在结构体的方法中要修改结构体的变量，需要加关键字 mutating
+    // 在结构体的方法中要修改结构体中的变量，需要加关键字 mutating
     mutating func adjust() {
         simpleDes += "aaa"
     }
 }
+
+/*****协议****/
+protocol FirstProtocol {
+    // protocol definition goes here
+}
+protocol AnotherProtocol {
+    // protocol definition goes here
+}
+struct SomeStructure: FirstProtocol,AnotherProtocol {
+    // structure definition goes here
+}
+class SomeClass: Shape,FirstProtocol,AnotherProtocol {
+    // class definition goes here
+}
+protocol SomeProtocol {
+    var mustBeSettable: Int {get set}
+    var doNotNeedToBeSettable: Int {get}
+}
+protocol FullyNamed {
+    var fullName: String {get}
+}
+struct Person: FullyNamed {
+    var fullName: String
+}
+let john = Person(fullName: "John")
+print(john.fullName)
+
+class Starship: FullyNamed {
+    var prefix: String?
+    var name: String
+    init(name: String, prefix: String? = nil) {
+        self.name = name
+        self.prefix = prefix
+    }
+    
+    var fullName: String {
+        return (prefix != nil ? prefix! + " " : "" ) + name
+    }
+}
+var starShip = Starship(name: "Enterprise", prefix: "USS")
+print(starShip.fullName)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
