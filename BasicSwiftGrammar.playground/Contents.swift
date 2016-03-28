@@ -444,6 +444,10 @@ let ace = Rank.Ace
 let aceRawValue = ace.rawValue
 let aceString = ace.simpleDescription()
 
+/*********/
+let optionalSquare : Square? = Square(sideLength:5.3, name: "optionalSquare")
+var optionalLength = optionalSquare?.sideLength
+
 /*****枚举构造器****/
 if let convertRank = Rank(rawValue: 3) {
     let threeDescription = convertRank.simpleDescription()
