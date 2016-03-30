@@ -506,13 +506,32 @@ struct Card {
 let threeOfSpades = Card(rank: .Three, suit: .Spades)
 let threeDes = threeOfSpades.simpleDescription()
 
+// 成员构造器
+struct SomeSize {
+//    var width = 0.0, height = 0.0
+    var width :Double?
+    var height:Double?
+}
+// 不管width和height是否被初始化，SomeSize都会自动接收一个带有两个参数width和height的成员构造器
+let someSize = SomeSize(width: 3.0, height: 2.0)
+print(someSize.width);print(someSize.height)
+
 struct Structure {
     var simpleDes = "A simple"
     // 在结构体的方法中要修改结构体中的变量，需要加关键字 mutating
     mutating func adjust() {
         simpleDes += "aaa"
     }
+    // 默认构造器,可以不写
+    init() {print("ssss")}
+    // 成员构造器
+    init(oneName:String, twoName:String) {
+        self.simpleDes = oneName
+    }
 }
+var structure = Structure()
+var structureTwo = Structure(oneName: "Member Initializer", twoName: "Hello")
+structure.simpleDes
 
 /*****协议****/
 protocol FirstProtocol {
@@ -584,8 +603,41 @@ print(unsafeAddressOf(arrayCopyValue))
 extension Starship {
     // new Functionality to add to Starship goes here
 }
+extension Double {
+    var km: Double {
+        return self * 1_000.0
+    }
+    var m: Double {
+        return self
+    }
+    var cm: Double {
+        return self/100.0
+    }
+    var mm: Double {
+        return self/1_000.0
+    }
+    var ft: Double {
+        return self/3.28084
+    }
+}
+let oneInch = 25.4.mm
+print("One inch is \(oneInch) meters")
+let threeFeet = 3.ft
+print("Three feet is \(threeFeet) meters")
 
-
+// 扩展结构体
+struct RectSize {
+    var width = 0.0, height = 0.0
+}
+struct RectPoint {
+    var x = 0.0, y = 0.0
+}
+struct Rect {
+    var origin = RectPoint()
+    var size = RectSize()
+}
+let defaultRect = Rect()
+let memberwiseRect = Rect(origin: RectPoint(x:2.0, y:2.0), size: RectSize(width: 3.0, height: 3.0))
 
 
 
