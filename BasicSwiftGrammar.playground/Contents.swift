@@ -625,7 +625,7 @@ print("One inch is \(oneInch) meters")
 let threeFeet = 3.ft
 print("Three feet is \(threeFeet) meters")
 
-// 扩展结构体
+// 扩展构造器
 struct RectSize {
     var width = 0.0, height = 0.0
 }
@@ -638,6 +638,33 @@ struct Rect {
 }
 let defaultRect = Rect()
 let memberwiseRect = Rect(origin: RectPoint(x:2.0, y:2.0), size: RectSize(width: 3.0, height: 3.0))
+extension Rect {
+    init(center: RectPoint, size: RectSize) {
+        let originX = center.x - (size.width/2)
+        let originY = center.y - (size.height/2)
+        self.init(origin: RectPoint(x: originX, y: originY), size: size)
+    }
+}
+let newRect = Rect(center: RectPoint(x: 3.0,y: 3.0), size: RectSize(width: 1.0, height: 1.0))
+print(newRect.origin)
+
+// 扩展方法
+extension Int {
+    func repetitions(task:() -> Void) {
+        for _ in 0..<self {
+            task()
+        }
+    }
+}
+2.repetitions { () -> Void in
+    print("Hello Swift")
+}
+2.repetitions({
+    print("Hello")
+})
+2.repetitions() {
+    print("ssss")
+}
 
 
 
