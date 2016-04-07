@@ -5,7 +5,7 @@ import Cocoa
 var str = "Hello, playground"
 print("Hello. world")
 
-/*********/
+/*****变量****/
 var myVariable = 1
 var floatValue : float_t
 floatValue = 4
@@ -13,7 +13,7 @@ myVariable = 3
 let myConstant : Int
 myConstant = 2
 
-/*********/
+/*****常量****/
 let label = "The width is"
 let width = 100
 let labelWidth = label + " " + String(width)
@@ -25,7 +25,7 @@ let oranges = 10.0
 let appleSummary = "I have \(apples) apples"
 let fruitSummary = "I have \(apples + oranges) pieces of fruit"
 
-/*********/
+/*****数组字典****/
 var shoppingList = ["fish","water"]
 var shoppingPrice = [13,3]
 shoppingList[1] = "apple"
@@ -36,7 +36,7 @@ shoppingDic["price"] = "12"
 /*********/
 var emptyArray = [String]()
 
-/*********/
+/*****控制流****/
 let vegetable = "red pepper"
 switch vegetable {
     
@@ -115,7 +115,7 @@ let nickName: String? = nil
 let fullName: String = "Swift"
 let informalGreeting = "Hi \(nickName ?? fullName)"
 
-/***********/
+/******多个相同类型参数*****/
 func sumOf(numbers:Int...) ->Int {
     var sum = 0
     for number in numbers {
@@ -139,7 +139,7 @@ for var i = 1; i < 5; i++ {
 }
 print(factorialTwo)
 
-/*********/
+/*****while****/
 var whileNumber = 2
 while whileNumber < 3 {
     whileNumber += 1
@@ -152,7 +152,7 @@ repeat {
 } while whileNumber2 < 2
 print(whileNumber2)
 
-/*********/
+/*****函数****/
 var nameAndDay = ""
 func greet(name: String, day: String, number: Int) ->String {
     return "Hello \(name), today is \(day), \(number)."
@@ -160,7 +160,7 @@ func greet(name: String, day: String, number: Int) ->String {
 nameAndDay = greet("Swift", day: "Sunday", number: 1)
 print(nameAndDay)
 
-/*********/
+/*****元组****/
 func calculate(scores: [Int]) -> (min: Int, max: Int, sum: Int) {
     var min = scores[0]
     var max = scores[0]
@@ -180,7 +180,7 @@ let statistics = calculate([5, 10, 39, 5])
 print(statistics.sum)
 print(statistics.1)
 
-/*********/
+/*****函数作为返回类型****/
 func makeIncrementer() ->((Int,Int) ->Int) {
     func addOne(number:Int,second:Int) ->Int {
         return number+second
@@ -206,7 +206,7 @@ func averageSumOfCube(a:Float, b:Float) ->Float {
 averageSumOfSquare(1.0, b: 3.0)
 averageSumOfCube(2.0, b: 3.0)
 
-/***********/
+/******函数作为参数*****/
 func averageOfSum(a:Float, b:Float, f:(Float ->Float)) ->Float {
     return (f(a) + f(b))/2.0
 }
@@ -255,7 +255,7 @@ let sortedNumbers = numbers.sort(){
 }
 print(sortedNumbers)
 
-/*********/
+/*****类****/
 class Shape {
     var numberOfSides = 0
     let numberOfPoint = 3
@@ -271,7 +271,7 @@ shape.numberOfSides = 1
 var shapeDes = shape.simpleDescription()
 print(shapeDes)
 
-/*********/
+/*****构造器****/
 class NameShape {
     var numberOfSides: Int = 0
     var name :String
@@ -285,7 +285,7 @@ class NameShape {
 var nameShape = NameShape(name: "ssss")
 var initName = nameShape.simpleDescription()
 
-/*********/
+/*****析构器****/
 class NameShapeTwo {
     var numberOfSides: Int
     init(number:Int) {
@@ -304,7 +304,7 @@ var shapeTwo :NameShapeTwo? = NameShapeTwo(number: 3)
 print("numberOfSides : \(shapeTwo!.numberOfSides)")
 shapeTwo = nil
 
-/*********/
+/*****override****/
 class Square: NameShape {
     var sideLength: Double
     init(sideLength: Double, name: String) {
@@ -325,7 +325,7 @@ squareTest.area()
 squareTest.simpleDescription()
 squareTest.name
 
-/*********/
+/*****get set****/
 class EquilateralTriangle: NameShape {
     var sideLength: Double = 0.0
     init(sideLength: Double, name: String) {
@@ -384,7 +384,7 @@ print(triangleOne.sideLength)
 triangleOne.sideLength = 3.6
 print(triangleOne.sideLength)
 
-/*********/
+/****willSet*didSet****/
 class TriangleAndSquare {
     
     var triangleL: EquilateralTriangle {
@@ -506,13 +506,197 @@ struct Card {
 let threeOfSpades = Card(rank: .Three, suit: .Spades)
 let threeDes = threeOfSpades.simpleDescription()
 
+// 成员构造器
+struct SomeSize {
+//    var width = 0.0, height = 0.0
+    var width :Double?
+    var height:Double?
+}
+// 不管width和height是否被初始化，SomeSize都会自动接收一个带有两个参数width和height的成员构造器
+let someSize = SomeSize(width: 3.0, height: 2.0)
+print(someSize.width);print(someSize.height)
+
 struct Structure {
     var simpleDes = "A simple"
-    // 在结构体的方法中要修改结构体的变量，需要加关键字 mutating
+    // 在结构体的方法中要修改结构体中的变量，需要加关键字 mutating
     mutating func adjust() {
         simpleDes += "aaa"
     }
+    // 默认构造器,可以不写
+    init() {print("ssss")}
+    // 成员构造器
+    init(oneName:String, twoName:String) {
+        self.simpleDes = oneName
+    }
 }
+var structure = Structure()
+var structureTwo = Structure(oneName: "Member Initializer", twoName: "Hello")
+structure.simpleDes
+
+/*****协议****/
+protocol FirstProtocol {
+    // protocol definition goes here
+}
+protocol AnotherProtocol {
+    // protocol definition goes here
+}
+struct SomeStructure: FirstProtocol,AnotherProtocol {
+    // structure definition goes here
+}
+class SomeClass: Shape,FirstProtocol,AnotherProtocol {
+    // class definition goes here
+}
+protocol SomeProtocol {
+    var mustBeSettable: Int {get set}
+    var doNotNeedToBeSettable: Int {get}
+    func someTypeMethod()
+}
+protocol FullyNamed {
+    var fullName: String {get}
+}
+struct Person: FullyNamed {
+    var fullName: String = "gettable"
+}
+let john = Person(fullName: "John")
+print(john.fullName)
+
+class Starship: FullyNamed {
+    var prefix: String?
+    var name: String
+    init(name: String, prefix: String? = nil) {
+        self.name = name
+        self.prefix = prefix
+    }
+    
+    var fullName: String {
+        return (prefix != nil ? prefix! + " " : "" ) + name
+    }
+}
+var starShip = Starship(name: "Enterprise", prefix: "USS")
+print(starShip.fullName)
+
+protocol RandomNumberGenerator {
+    func random() ->Double
+}
+class LinearCongruentialGenerator: RandomNumberGenerator {
+    
+    var lastRandom = 42.0
+    let m = 139968.0
+    let a = 3877.0
+    let c = 2973.0
+    func random() -> Double {
+        lastRandom = ((lastRandom*a + c) % m)
+        return lastRandom / m
+    }
+}
+let generator = LinearCongruentialGenerator()
+print("Random number : \(generator.random())")
+print("Another Random number: \(generator.random())")
+
+/*****value type****/
+var arrayValue = [12,43,55,1]
+var arrayCopyValue = arrayValue
+print(unsafeAddressOf(arrayValue))
+print(unsafeAddressOf(arrayCopyValue))
+
+/*****扩展****/
+extension Starship {
+    // new Functionality to add to Starship goes here
+}
+extension Double {
+    var km: Double {
+        return self * 1_000.0
+    }
+    var m: Double {
+        return self
+    }
+    var cm: Double {
+        return self/100.0
+    }
+    var mm: Double {
+        return self/1_000.0
+    }
+    var ft: Double {
+        return self/3.28084
+    }
+}
+let oneInch = 25.4.mm
+print("One inch is \(oneInch) meters")
+let threeFeet = 3.ft
+print("Three feet is \(threeFeet) meters")
+
+// 扩展构造器
+struct RectSize {
+    var width = 0.0, height = 0.0
+}
+struct RectPoint {
+    var x = 0.0, y = 0.0
+}
+struct Rect {
+    var origin = RectPoint()
+    var size = RectSize()
+}
+let defaultRect = Rect()
+let memberwiseRect = Rect(origin: RectPoint(x:2.0, y:2.0), size: RectSize(width: 3.0, height: 3.0))
+extension Rect {
+    init(center: RectPoint, size: RectSize) {
+        let originX = center.x - (size.width/2)
+        let originY = center.y - (size.height/2)
+        self.init(origin: RectPoint(x: originX, y: originY), size: size)
+    }
+}
+let newRect = Rect(center: RectPoint(x: 3.0,y: 3.0), size: RectSize(width: 1.0, height: 1.0))
+print(newRect.origin)
+
+// 扩展方法
+extension Int {
+    func repetitions(task:() -> Void) {
+        for _ in 0..<self {
+            task()
+        }
+    }
+}
+2.repetitions { () -> Void in
+    print("Hello Swift")
+}
+2.repetitions({
+    print("Hello")
+})
+2.repetitions() {
+    print("ssss")
+}
+
+/*****In-out****/
+func swapTwoInts(inout a:Int, inout _ b:Int) {
+    let tempInt = a
+    a = b
+    b = tempInt
+}
+var someInt = 3,someIntTwo = 5
+swapTwoInts(&someInt, &someIntTwo)
+print(someIntTwo)
+
+/*****Generics****/
+func swapTwoValues<T>(inout a:T, inout _ b:T) {
+    let tempValue = a
+    a = b
+    b = tempValue
+}
+var oneGenericValue = "one"
+var twoGenericValue = "two"
+swapTwoValues(&oneGenericValue, &twoGenericValue)
+swapTwoValues(&someInt, &someIntTwo)
+print(oneGenericValue)
+print(someIntTwo)
+
+
+
+
+
+
+
+
+
 
 
 
