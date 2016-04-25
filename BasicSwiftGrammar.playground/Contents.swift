@@ -677,6 +677,7 @@ swapTwoInts(&someInt, &someIntTwo)
 print(someIntTwo)
 
 /*****Generics****/
+
 func swapTwoValues<T>(inout a:T, inout _ b:T) {
     let tempValue = a
     a = b
@@ -688,6 +689,42 @@ swapTwoValues(&oneGenericValue, &twoGenericValue)
 swapTwoValues(&someInt, &someIntTwo)
 print(oneGenericValue)
 print(someIntTwo)
+
+/*****Generics Type****/
+
+struct IntStack {
+    
+    var items = [Int]()
+    mutating func push(item: Int) {
+        items.append(item)
+    }
+    
+    mutating func pop() ->Int {
+        return items.removeLast()
+    }
+}
+
+let pushItem = 5
+var intStack = IntStack()
+intStack.push(pushItem)
+
+struct GenericStack<T> {
+    
+    var items = [T]()
+    mutating func push(item: T) {
+        items.append(item)
+    }
+    mutating func pop() ->T {
+        return items.removeLast()
+    }
+}
+
+var stackOfStrings = GenericStack<String>()
+stackOfStrings.push("uno")
+stackOfStrings.push("dos")
+stackOfStrings.push("tres")
+stackOfStrings.push("cuatro")
+let popItem = stackOfStrings.pop()
 
 
 
