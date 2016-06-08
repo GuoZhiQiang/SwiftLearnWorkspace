@@ -29,7 +29,7 @@ let fruitSummary = "I have \(apples + oranges) pieces of fruit"
 var shoppingList = ["fish","water"]
 var shoppingPrice = [13,3]
 shoppingList[1] = "apple"
-var shoppingDic = ["name":"fish", "price":12,]
+var shoppingDic = ["name":"fish", "price":12,1:2]
 var price = shoppingDic["price"]
 shoppingDic["price"] = "12"
 
