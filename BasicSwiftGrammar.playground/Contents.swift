@@ -440,6 +440,7 @@ enum Rank: Int {
         }
     }
 }
+
 let ace = Rank.Ace
 let aceRawValue = ace.rawValue
 let aceString = ace.simpleDescription()
@@ -469,6 +470,9 @@ enum Suit {
         }
     }
 }
+// 带有 rawValue 的枚举才会自动拥有可失败构造器,所以下面的 initSuit 报错
+// let initSuit  = Suit(rawValue:);
+
 let heartFull = Suit.Hearts
 let hearts:Suit = .Hearts
 let heartsDes = hearts.simpleDescription()
@@ -512,7 +516,8 @@ struct SomeSize {
     var width :Double?
     var height:Double?
 }
-// 不管width和height是否被初始化，SomeSize都会自动接收一个带有两个参数width和height的成员构造器
+// 对于存储属性不管width和height是否被初始化，SomeSize都会自动接收一个带有两个参数width和height的成员构造器
+SomeSize()
 let someSize = SomeSize(width: 3.0, height: 2.0)
 print(someSize.width);print(someSize.height)
 
